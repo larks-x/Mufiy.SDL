@@ -104,7 +104,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          submodules: recursive
+          submodules: true
 
       - name: Build (iOS)
         run: xcodebuild -project external/SDL/Xcode/SDL/SDL.xcodeproj -target SDL3.xcframework -configuration Release
