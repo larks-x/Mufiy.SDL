@@ -61,7 +61,7 @@ jobs:
     - name: Pack
       run: dotnet pack Mufiy.SDL.sln --configuration Release
 
-    - name: Publish to NuGet
+    - name: Publish to a private NuGet
       if: github.event_name == 'push'
       run: |
         dotnet nuget push artifacts/package/release/*.nupkg -k ${{secrets.BAGETTER_KEY}} --skip-duplicate --source https://nuget.mikoui.com/v3/index.json
