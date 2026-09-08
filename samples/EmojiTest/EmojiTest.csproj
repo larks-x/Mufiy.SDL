@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <OutputType>Exe</OutputType>
+    <IsPackable>false</IsPackable>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+
+  <Choose>
+    <When Condition="$([MSBuild]::IsOSPlatform('Windows')) AND '$([System.Runtime.InteropServices.RuntimeInformation]::OSArchitecture)' == 'X64'">
+      <ItemGroup>
+        <None Include="$(MSBuildThisFileDirectory)..\..\external\SDL\build_unicode\Release\SDL3.dll" Link="SDL3.dll" Visible="False" CopyToOutputDirectory="PreserveNewest" />
+      </ItemGroup>
+    </When>
+  </Choose>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\Miko.SDL\Miko.SDL.csproj" />
+  </ItemGroup>
+
+</Project>

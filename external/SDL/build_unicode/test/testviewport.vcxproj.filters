@@ -1,0 +1,130 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="18.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="E:\apple\miko_sdl\external\SDL\test\testviewport.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="E:\apple\miko_sdl\external\SDL\test\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="E:\apple\miko_sdl\external\SDL\test\audiofile.png">
+      <Filter>Resources</Filter>
+    </Image>
+    <Image Include="E:\apple\miko_sdl\external\SDL\test\gamepad_axis.png">
+      <Filter>Resources</Filter>
+    </Image>
+    <Image Include="E:\apple\miko_sdl\external\SDL\test\gamepad_axis_arrow.png">
+      <Filter>Resources</Filter>
+    </Image>
+    <Image Include="E:\apple\miko_sdl\external\SDL\test\gamepad_back.png">
+      <Filter>Resources</Filter>
+    </Image>
+    <Image Include="E:\apple\miko_sdl\external\SDL\test\gamepad_battery.png">
+      <Filter>Resources</Filter>
+    </Image>
+    <Image Include="E:\apple\miko_sdl\external\SDL\test\gamepad_battery_unknown.png">
+      <Filter>Resources</Filter>
+    </Image>
+    <Image Include="E:\apple\miko_sdl\external\SDL\test\gamepad_battery_wired.png">
+      <Filter>Resources</Filter>
+    </Image>
+    <Image Include="E:\apple\miko_sdl\external\SDL\test\gamepad_button.png">
+      <Filter>Resources</Filter>
+    </Image>
+    <Image Include="E:\apple\miko_sdl\external\SDL\test\gamepad_button_background.png">
+      <Filter>Resources</Filter>
+    </Image>
+    <Image Include="E:\apple\miko_sdl\external\SDL\test\gamepad_button_small.png">
+      <Filter>Resources</Filter>
+    </Image>
+    <Image Include="E:\apple\miko_sdl\external\SDL\test\gamepad_face_abxy.png">
+      <Filter>Resources</Filter>
+    </Image>
+    <Image Include="E:\apple\miko_sdl\external\SDL\test\gamepad_face_axby.png">
+      <Filter>Resources</Filter>
+    </Image>
+    <Image Include="E:\apple\miko_sdl\external\SDL\test\gamepad_face_bayx.png">
+      <Filter>Resources</Filter>
+    </Image>
+    <Image Include="E:\apple\miko_sdl\external\SDL\test\gamepad_face_sony.png">
+      <Filter>Resources</Filter>
+    </Image>
+    <Image Include="E:\apple\miko_sdl\external\SDL\test\gamepad_front.png">
+      <Filter>Resources</Filter>
+    </Image>
+    <Image Include="E:\apple\miko_sdl\external\SDL\test\gamepad_touchpad.png">
+      <Filter>Resources</Filter>
+    </Image>
+    <Image Include="E:\apple\miko_sdl\external\SDL\test\gamepad_wired.png">
+      <Filter>Resources</Filter>
+    </Image>
+    <Image Include="E:\apple\miko_sdl\external\SDL\test\gamepad_wireless.png">
+      <Filter>Resources</Filter>
+    </Image>
+    <Image Include="E:\apple\miko_sdl\external\SDL\test\glass.png">
+      <Filter>Resources</Filter>
+    </Image>
+    <Image Include="E:\apple\miko_sdl\external\SDL\test\icon.png">
+      <Filter>Resources</Filter>
+    </Image>
+    <Image Include="E:\apple\miko_sdl\external\SDL\test\icon2x.png">
+      <Filter>Resources</Filter>
+    </Image>
+    <Image Include="E:\apple\miko_sdl\external\SDL\test\logaudiodev.png">
+      <Filter>Resources</Filter>
+    </Image>
+    <Image Include="E:\apple\miko_sdl\external\SDL\test\msdf_font.png">
+      <Filter>Resources</Filter>
+    </Image>
+    <Image Include="E:\apple\miko_sdl\external\SDL\test\physaudiodev.png">
+      <Filter>Resources</Filter>
+    </Image>
+    <Image Include="E:\apple\miko_sdl\external\SDL\test\sample.png">
+      <Filter>Resources</Filter>
+    </Image>
+    <Image Include="E:\apple\miko_sdl\external\SDL\test\sdl-test_round.png">
+      <Filter>Resources</Filter>
+    </Image>
+    <Image Include="E:\apple\miko_sdl\external\SDL\test\soundboard.png">
+      <Filter>Resources</Filter>
+    </Image>
+    <Image Include="E:\apple\miko_sdl\external\SDL\test\soundboard_levels.png">
+      <Filter>Resources</Filter>
+    </Image>
+    <Image Include="E:\apple\miko_sdl\external\SDL\test\speaker.png">
+      <Filter>Resources</Filter>
+    </Image>
+    <Image Include="E:\apple\miko_sdl\external\SDL\test\testyuv.png">
+      <Filter>Resources</Filter>
+    </Image>
+    <Image Include="E:\apple\miko_sdl\external\SDL\test\trashcan.png">
+      <Filter>Resources</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="E:\apple\miko_sdl\external\SDL\test\moose.dat" />
+    <None Include="E:\apple\miko_sdl\external\SDL\test\msdf_font.csv" />
+    <None Include="E:\apple\miko_sdl\external\SDL\test\sample.wav" />
+    <None Include="E:\apple\miko_sdl\external\SDL\test\sword.wav" />
+    <None Include="E:\apple\miko_sdl\external\SDL\test\unifont-15.1.05.hex" />
+    <None Include="E:\apple\miko_sdl\external\SDL\test\utf8.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Object Include="E:\apple\miko_sdl\external\SDL\build_unicode\test\sdltests_utils.dir\$(Configuration)\testutils.obj">
+      <Filter>Object Libraries</Filter>
+    </Object>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Object Libraries">
+      <UniqueIdentifier>{18F7A7C5-B129-33A3-9416-C53BFBC02019}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resources">
+      <UniqueIdentifier>{8EE91805-7766-32D3-AB5C-BD99422370B0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{77331E12-81F5-3931-B817-DF86116ABFEB}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

@@ -1,0 +1,68 @@
+name: Build Nuget Package
+
+on:
+  push:
+    branches:
+      - 'main'
+    paths:
+      - 'src/Mufiy.SDL/Mufiy.SDL.csproj'
+      - 'version.json'
+      - .github/workflows/build_nuget_package.yml  
+  pull_request:
+    paths:
+      - 'src/Mufiy.SDL/Mufiy.SDL.csproj'
+      - 'version.json'
+      - .github/workflows/build_nuget_package.yml  
+      
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+        
+    - name: Setup .NET SDK
+      uses: actions/setup-dotnet@v4
+      with:
+        global-json-file: ./global.json
+
+    - name: Install .Net android Workloads
+      run: dotnet workload install android
+    # - name: Install .Net ios Workloads
+    #   run: dotnet workload install ios
+    # - name: Install .Net maccatalyst Workloads
+    #   run: dotnet workload install maccatalyst
+    # - name: Install .Net maui Workloads
+    #   run: dotnet workload install maui
+
+    - name: Set up Android SDK
+      uses: android-actions/setup-android@v3.2.1
+
+    - name: Install Android Platforms
+      run: |
+        sdkmanager --install "build-tools;34.0.0"
+        sdkmanager --install "platform-tools"
+        sdkmanager --install "platforms;android-26"
+        sdkmanager --install "platforms;android-27"
+        sdkmanager --install "platforms;android-28"
+        sdkmanager --install "platforms;android-29"
+        sdkmanager --install "platforms;android-30"
+        sdkmanager --install "platforms;android-31"
+        sdkmanager --install "platforms;android-33"
+        sdkmanager --install "platforms;android-34"    
+
+    - name: Restore dependencies
+      run: dotnet restore Mufiy.SDL.sln
+
+    - name: Build
+      run: dotnet build Mufiy.SDL.sln --configuration Release
+
+    - name: Pack
+      run: dotnet pack Mufiy.SDL.sln --configuration Release
+
+    - name: Publish to NuGet
+      if: github.event_name == 'push'
+      run: |
+        dotnet nuget push artifacts/package/release/*.nupkg -k ${{secrets.BAGETTER_KEY}} --skip-duplicate --source https://nuget.mikoui.com/v3/index.json
+        dotnet nuget push artifacts/package/release/*.snupkg -k ${{secrets.BAGETTER_KEY}} --skip-duplicate --source https://nuget.mikoui.com/v3/index.json
