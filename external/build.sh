@@ -114,8 +114,20 @@ InstallModernWayland() {
     echo "Building libwayland ${target} into ${prefix} to keep the Wayland backend enabled..."
     python3 -m pip install --upgrade "pip<22"
     python3 -m pip install "meson==0.61.5"   # 0.61.x 是最后支持 Python 3.6 的版本
-    wget -q -O "/tmp/wayland-${target}.tar.xz" \
-        "https://gitlab.freedesktop.org/wayland/wayland/-/releases/${target}/downloads/wayland-${target}.tar.xz"
+    # gitlab 偶发返回 5xx（两个交叉任务并发下载时更易触发），下载失败自动重试
+    local attempt
+    for attempt in 1 2 3 4 5; do
+        if wget -q --timeout=30 -O "/tmp/wayland-${target}.tar.xz" \
+            "https://gitlab.freedesktop.org/wayland/wayland/-/releases/${target}/downloads/wayland-${target}.tar.xz"; then
+            break
+        fi
+        echo "Download wayland ${target} failed (attempt ${attempt}), retrying in 5s..."
+        sleep 5
+    done
+    if [[ ! -s "/tmp/wayland-${target}.tar.xz" ]]; then
+        echo "Failed to download wayland ${target} after 5 attempts"
+        exit 1
+    fi
     tar -xJf "/tmp/wayland-${target}.tar.xz" -C /tmp
 
     # 交叉编译时，wayland 要求 build-time 的 wayland-scanner 与源码版本严格一致，
