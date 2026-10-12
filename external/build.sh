@@ -263,6 +263,12 @@ if [[ $RUNNER_OS == 'Linux' ]]; then
         # libexpat / libffi 是构建 wayland 的必需依赖，须与目标架构保持一致
         $SUDO apt-get install -y --no-install-recommends \
             python3-pip xz-utils libexpat1-dev$TARGET_APT_ARCH libffi-dev$TARGET_APT_ARCH
+        # 交叉编译还需先用宿主工具链构建 native wayland-scanner；
+        # 该 native 构建按宿主 pkg-config 路径解析依赖（见 InstallModernWayland），
+        # 所以 expat/libffi 的宿主架构版本也必须安装，否则报 Dependency "libffi" not found
+        if [[ -n $CROSS_PREFIX ]]; then
+            $SUDO apt-get install -y --no-install-recommends libexpat1-dev libffi-dev
+        fi
         InstallModernWayland
 
         # 18.04 的 libsndio-dev 不随包提供 sndio.pc，SDL 会因此检测不到 sndio 音频后端，这里补一个最小 .pc
