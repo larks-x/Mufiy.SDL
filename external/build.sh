@@ -214,6 +214,8 @@ if [[ $RUNNER_OS == 'Linux' ]]; then
         $SUDO apt-get install -y "libpango1.0-dev$TARGET_APT_ARCH" || true
     fi
 
+    # 注意：pkg-config 是宿主侧构建工具，不能加 $TARGET_APT_ARCH 后缀，
+    # 否则目标架构二进制会覆盖 /usr/bin/pkg-config，宿主执行时报 Exec format error
     $SUDO apt-get install -y \
         $GCC \
         $GPP \
@@ -223,7 +225,7 @@ if [[ $RUNNER_OS == 'Linux' ]]; then
         libwayland-bin \
         wayland-protocols \
         meson \
-        pkg-config$TARGET_APT_ARCH \
+        pkg-config \
         libasound2-dev$TARGET_APT_ARCH \
         libdbus-1-dev$TARGET_APT_ARCH \
         libegl1-mesa-dev$TARGET_APT_ARCH \
