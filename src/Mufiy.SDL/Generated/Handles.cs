@@ -345,6 +345,7 @@ public enum SDL_Keycode : uint
 	Clearagain = SDL3.SDLK_CLEARAGAIN,
 	Crsel = SDL3.SDLK_CRSEL,
 	Exsel = SDL3.SDLK_EXSEL,
+	Front = SDL3.SDLK_FRONT,
 	Kp00 = SDL3.SDLK_KP_00,
 	Kp000 = SDL3.SDLK_KP_000,
 	Thousandsseparator = SDL3.SDLK_THOUSANDSSEPARATOR,

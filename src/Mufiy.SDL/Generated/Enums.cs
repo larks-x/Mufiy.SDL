@@ -1120,7 +1120,9 @@ public enum SDL_GamepadType
 	NintendoSwitchJoyconPair = 10,
 	/// <unmanaged>SDL_GAMEPAD_TYPE_GAMECUBE</unmanaged>
 	Gamecube = 11,
-	Count = 12,
+	/// <unmanaged>SDL_GAMEPAD_TYPE_STEAM</unmanaged>
+	Steam = 12,
+	Count = 13,
 }
 
 /// <summary>
@@ -3785,6 +3787,11 @@ public enum SDL_Scancode
 	Crsel = 163,
 	/// <unmanaged>SDL_SCANCODE_EXSEL</unmanaged>
 	Exsel = 164,
+	/// <summary>
+	/// Front (Sun keyboards)
+	/// </summary>
+	/// <unmanaged>SDL_SCANCODE_FRONT</unmanaged>
+	Front = 165,
 	/// <unmanaged>SDL_SCANCODE_KP_00</unmanaged>
 	Kp00 = 176,
 	/// <unmanaged>SDL_SCANCODE_KP_000</unmanaged>

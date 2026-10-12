@@ -46,6 +46,7 @@ public static partial class SDL3
 	public static ReadOnlySpan<byte> SDL_HINT_ANDROID_ALLOW_RECREATE_ACTIVITY => "SDL_ANDROID_ALOW_RECREATE_ACTIVITY"u8;
 	public static ReadOnlySpan<byte> SDL_HINT_ANDROID_BLOCK_ON_PAUSE => "SDL_ANDROID_BLOCK_ON_PAUSE"u8;
 	public static ReadOnlySpan<byte> SDL_HINT_ANDROID_LOW_LATENCY_AUDIO => "SDL_ANDROID_LOW_LATENCY_AUDIO"u8;
+	public static ReadOnlySpan<byte> SDL_HINT_ANDROID_AAUDIO_INPUT_PRESET => "SDL_ANDROID_AAUDIO_INPUT_PRESET"u8;
 	public static ReadOnlySpan<byte> SDL_HINT_ANDROID_TRAP_BACK_BUTTON => "SDL_ANDROID_TRAP_BACK_BUTTON"u8;
 	public static ReadOnlySpan<byte> SDL_HINT_APP_ID => "SDL_APP_ID"u8;
 	public static ReadOnlySpan<byte> SDL_HINT_APP_NAME => "SDL_APP_NAME"u8;
@@ -515,6 +516,7 @@ public static partial class SDL3
 	public const uint SDLK_CLEARAGAIN = 0x400000a2u;
 	public const uint SDLK_CRSEL = 0x400000a3u;
 	public const uint SDLK_EXSEL = 0x400000a4u;
+	public const uint SDLK_FRONT = 0x400000a5u;
 	public const uint SDLK_KP_00 = 0x400000b0u;
 	public const uint SDLK_KP_000 = 0x400000b1u;
 	public const uint SDLK_THOUSANDSSEPARATOR = 0x400000b2u;
@@ -784,7 +786,7 @@ public static partial class SDL3
 	public const uint SDL_NS_PER_US = 1000;
 	public const int SDL_MAJOR_VERSION = 3;
 	public const int SDL_MINOR_VERSION = 4;
-	public const int SDL_MICRO_VERSION = 14;
+	public const int SDL_MICRO_VERSION = 18;
 	public static ReadOnlySpan<byte> SDL_PROP_GLOBAL_VIDEO_WAYLAND_WL_DISPLAY_POINTER => "SDL.video.wayland.wl_display"u8;
 	public const ulong SDL_WINDOW_FULLSCREEN = 0x0000000000000001;
 	public const ulong SDL_WINDOW_OPENGL = 0x0000000000000002;
@@ -1191,6 +1193,7 @@ public static partial class SDL3
 	public const SDL_GamepadType SDL_GAMEPAD_TYPE_NINTENDO_SWITCH_JOYCON_RIGHT = SDL_GamepadType.NintendoSwitchJoyconRight;
 	public const SDL_GamepadType SDL_GAMEPAD_TYPE_NINTENDO_SWITCH_JOYCON_PAIR = SDL_GamepadType.NintendoSwitchJoyconPair;
 	public const SDL_GamepadType SDL_GAMEPAD_TYPE_GAMECUBE = SDL_GamepadType.Gamecube;
+	public const SDL_GamepadType SDL_GAMEPAD_TYPE_STEAM = SDL_GamepadType.Steam;
 	public const SDL_GamepadType SDL_GAMEPAD_TYPE_COUNT = SDL_GamepadType.Count;
 	public const SDL_GamepadButton SDL_GAMEPAD_BUTTON_INVALID = SDL_GamepadButton.Invalid;
 	public const SDL_GamepadButton SDL_GAMEPAD_BUTTON_SOUTH = SDL_GamepadButton.South;
@@ -1729,6 +1732,7 @@ public static partial class SDL3
 	public const SDL_Scancode SDL_SCANCODE_CLEARAGAIN = SDL_Scancode.Clearagain;
 	public const SDL_Scancode SDL_SCANCODE_CRSEL = SDL_Scancode.Crsel;
 	public const SDL_Scancode SDL_SCANCODE_EXSEL = SDL_Scancode.Exsel;
+	public const SDL_Scancode SDL_SCANCODE_FRONT = SDL_Scancode.Front;
 	public const SDL_Scancode SDL_SCANCODE_KP_00 = SDL_Scancode.Kp00;
 	public const SDL_Scancode SDL_SCANCODE_KP_000 = SDL_Scancode.Kp000;
 	public const SDL_Scancode SDL_SCANCODE_THOUSANDSSEPARATOR = SDL_Scancode.Thousandsseparator;

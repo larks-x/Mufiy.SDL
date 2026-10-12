@@ -7163,8 +7163,9 @@ public unsafe partial class SDL3
 	/// - `SDL_PROP_APP_METADATA_NAME_STRING`: The human-readable name of the<br/>
 	/// application, like "My Game 2: Bad Guy's Revenge!". This will show up<br/>
 	/// anywhere the OS shows the name of the application separately from window<br/>
-	/// titles, such as volume control applets, etc. This defaults to "SDL<br/>
-	/// Application".<br/>
+	/// titles, such as volume control applets, etc. If not provided by the app,<br/>
+	/// SDL will attempt to pick a reasonable default (the app's binary's name<br/>
+	/// if the platform can provide it, or "SDL Application" if all else fails).<br/>
 	/// - `SDL_PROP_APP_METADATA_VERSION_STRING`: The version of the app that is<br/>
 	/// running; there are no rules on format, so "1.0.3beta2" and "April 22nd,<br/>
 	/// 2024" and a git hash are all valid options. This has no default.<br/>
@@ -13041,7 +13042,7 @@ public unsafe partial class SDL3
 
 	/// <summary>
 	/// Create a 2D software rendering context for a surface.<br/>
-	/// Two other API which can be used to create SDL_Renderer:<br/>
+	/// Two other APIs which can be used to create SDL_Renderer:<br/>
 	/// SDL_CreateRenderer() and SDL_CreateWindowAndRenderer(). These can _also_<br/>
 	/// create a software renderer, but they are intended to be used with an<br/>
 	/// SDL_Window as the final destination and not an SDL_Surface.<br/>
@@ -13711,6 +13712,7 @@ public unsafe partial class SDL3
 
 	/// <summary>
 	/// Set the blend mode for a texture, used by SDL_RenderTexture().<br/>
+	/// This blend mode is used for any drawing that involves this texture.<br/>
 	/// If the blend mode is not supported, the closest supported mode is chosen<br/>
 	/// and this function returns false.<br/>
 	/// <br/>
@@ -13722,7 +13724,8 @@ public unsafe partial class SDL3
 	/// <br/>
 	/// @since This function is available since SDL 3.2.0.<br/>
 	/// <br/>
-	/// @sa SDL_GetTextureBlendMode
+	/// @sa SDL_GetTextureBlendMode<br/>
+	/// @sa SDL_SetRenderDrawBlendMode
 	/// </summary>
 	[LibraryImport(LibName, EntryPoint = "SDL_SetTextureBlendMode")]
 	public static partial SDLBool SDL_SetTextureBlendMode(SDL_Texture* texture, SDL_BlendMode blendMode);
@@ -14480,7 +14483,8 @@ public unsafe partial class SDL3
 	public static partial SDLBool SDL_GetRenderColorScale(SDL_Renderer renderer, float* scale);
 
 	/// <summary>
-	/// Set the blend mode used for drawing operations (Fill and Line).<br/>
+	/// Set the blend mode used for drawing operations.<br/>
+	/// This blend mode is used for any drawing that doesn't involve textures.<br/>
 	/// If the blend mode is not supported, the closest supported mode is chosen.<br/>
 	/// <br/>
 	/// @param renderer the rendering context.<br/>
@@ -14491,7 +14495,8 @@ public unsafe partial class SDL3
 	/// <br/>
 	/// @since This function is available since SDL 3.2.0.<br/>
 	/// <br/>
-	/// @sa SDL_GetRenderDrawBlendMode
+	/// @sa SDL_GetRenderDrawBlendMode<br/>
+	/// @sa SDL_SetTextureBlendMode
 	/// </summary>
 	[LibraryImport(LibName, EntryPoint = "SDL_SetRenderDrawBlendMode")]
 	public static partial SDLBool SDL_SetRenderDrawBlendMode(SDL_Renderer renderer, SDL_BlendMode blendMode);
@@ -27346,6 +27351,8 @@ public unsafe partial class SDL3
 	/// <summary>
 	/// Binds texture-sampler pairs for use on the vertex shader.<br/>
 	/// The textures must have been created with SDL_GPU_TEXTUREUSAGE_SAMPLER.<br/>
+	/// The textures being bound must have a matching type declared in the shader<br/>
+	/// (2D, 3D, etc.). Multisample textures are not allowed.<br/>
 	/// Be sure your shader is set up according to the requirements documented in<br/>
 	/// SDL_CreateGPUShader().<br/>
 	/// <br/>
@@ -27367,6 +27374,8 @@ public unsafe partial class SDL3
 	/// Binds storage textures for use on the vertex shader.<br/>
 	/// These textures must have been created with<br/>
 	/// SDL_GPU_TEXTUREUSAGE_GRAPHICS_STORAGE_READ.<br/>
+	/// The textures being bound must have a matching type declared in the shader<br/>
+	/// (2D, 3D, 2DMS, etc.)<br/>
 	/// Be sure your shader is set up according to the requirements documented in<br/>
 	/// SDL_CreateGPUShader().<br/>
 	/// <br/>
@@ -27404,6 +27413,8 @@ public unsafe partial class SDL3
 	/// <summary>
 	/// Binds texture-sampler pairs for use on the fragment shader.<br/>
 	/// The textures must have been created with SDL_GPU_TEXTUREUSAGE_SAMPLER.<br/>
+	/// The textures being bound must have a matching type declared in the shader<br/>
+	/// (2D, 3D, etc.). Multisample textures are not allowed.<br/>
 	/// Be sure your shader is set up according to the requirements documented in<br/>
 	/// SDL_CreateGPUShader().<br/>
 	/// <br/>
@@ -27425,6 +27436,8 @@ public unsafe partial class SDL3
 	/// Binds storage textures for use on the fragment shader.<br/>
 	/// These textures must have been created with<br/>
 	/// SDL_GPU_TEXTUREUSAGE_GRAPHICS_STORAGE_READ.<br/>
+	/// The textures being bound must have a matching type declared in the shader<br/>
+	/// (2D, 3D, 2DMS, etc.)<br/>
 	/// Be sure your shader is set up according to the requirements documented in<br/>
 	/// SDL_CreateGPUShader().<br/>
 	/// <br/>
@@ -27604,6 +27617,8 @@ public unsafe partial class SDL3
 	/// <summary>
 	/// Binds texture-sampler pairs for use on the compute shader.<br/>
 	/// The textures must have been created with SDL_GPU_TEXTUREUSAGE_SAMPLER.<br/>
+	/// The textures being bound must have a matching type declared in the shader<br/>
+	/// (2D, 3D, etc.). Multisample textures are not allowed.<br/>
 	/// Be sure your shader is set up according to the requirements documented in<br/>
 	/// SDL_CreateGPUComputePipeline().<br/>
 	/// <br/>
@@ -27625,6 +27640,8 @@ public unsafe partial class SDL3
 	/// Binds storage textures as readonly for use on the compute pipeline.<br/>
 	/// These textures must have been created with<br/>
 	/// SDL_GPU_TEXTUREUSAGE_COMPUTE_STORAGE_READ.<br/>
+	/// The textures being bound must have a matching type declared in the shader<br/>
+	/// (2D, 3D, 2DMS, etc.)<br/>
 	/// Be sure your shader is set up according to the requirements documented in<br/>
 	/// SDL_CreateGPUComputePipeline().<br/>
 	/// <br/>

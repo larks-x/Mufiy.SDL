@@ -1195,6 +1195,14 @@ public partial struct SDL_PenProximityEvent
 	/// The pen instance id
 	/// </summary>
 	public SDL_PenID which;
+	/// <summary>
+	/// Complete pen input state at time of event (added in 3.4.16).
+	/// </summary>
+	public SDL_PenInputFlags pen_state;
+	/// <summary>
+	/// the device type of the pen, if known (added in 3.4.18).
+	/// </summary>
+	public SDL_PenDeviceType device_type;
 }
 
 /// <summary>
@@ -1240,6 +1248,10 @@ public partial struct SDL_PenMotionEvent
 	/// Y coordinate, relative to window
 	/// </summary>
 	public float y;
+	/// <summary>
+	/// the device type of the pen, if known (added in 3.4.18).
+	/// </summary>
+	public SDL_PenDeviceType device_type;
 }
 
 /// <summary>
@@ -1288,6 +1300,10 @@ public partial struct SDL_PenTouchEvent
 	/// true if the pen is touching or false if the pen is lifted off
 	/// </summary>
 	public SDLBool down;
+	/// <summary>
+	/// the device type of the pen, if known (added in 3.4.18).
+	/// </summary>
+	public SDL_PenDeviceType device_type;
 }
 
 /// <summary>
@@ -1336,6 +1352,10 @@ public partial struct SDL_PenButtonEvent
 	/// true if the button is pressed
 	/// </summary>
 	public SDLBool down;
+	/// <summary>
+	/// the device type of the pen, if known (added in 3.4.18).
+	/// </summary>
+	public SDL_PenDeviceType device_type;
 }
 
 /// <summary>
@@ -1384,6 +1404,10 @@ public partial struct SDL_PenAxisEvent
 	/// New value of axis
 	/// </summary>
 	public float value;
+	/// <summary>
+	/// the device type of the pen, if known (added in 3.4.18).
+	/// </summary>
+	public SDL_PenDeviceType device_type;
 }
 
 /// <summary>
@@ -3619,7 +3643,8 @@ public partial struct SDL_GPUViewport
 /// @since This struct is available since SDL 3.2.0.<br/>
 /// <br/>
 /// @sa SDL_UploadToGPUTexture<br/>
-/// @sa SDL_DownloadFromGPUTexture
+/// @sa SDL_DownloadFromGPUTexture<br/>
+/// @sa SDL_GPUTransferBuffer
 /// </summary>
 public partial struct SDL_GPUTextureTransferInfo
 {
@@ -3648,7 +3673,8 @@ public partial struct SDL_GPUTextureTransferInfo
 /// @since This struct is available since SDL 3.2.0.<br/>
 /// <br/>
 /// @sa SDL_UploadToGPUBuffer<br/>
-/// @sa SDL_DownloadFromGPUBuffer
+/// @sa SDL_DownloadFromGPUBuffer<br/>
+/// @sa SDL_GPUTransferBuffer
 /// </summary>
 public partial struct SDL_GPUTransferBufferLocation
 {
@@ -3668,7 +3694,8 @@ public partial struct SDL_GPUTransferBufferLocation
 /// <br/>
 /// @since This struct is available since SDL 3.2.0.<br/>
 /// <br/>
-/// @sa SDL_CopyGPUTextureToTexture
+/// @sa SDL_CopyGPUTextureToTexture<br/>
+/// @sa SDL_GPUTexture
 /// </summary>
 public partial struct SDL_GPUTextureLocation
 {
@@ -3706,7 +3733,8 @@ public partial struct SDL_GPUTextureLocation
 /// <br/>
 /// @sa SDL_UploadToGPUTexture<br/>
 /// @sa SDL_DownloadFromGPUTexture<br/>
-/// @sa SDL_CreateGPUTexture
+/// @sa SDL_CreateGPUTexture<br/>
+/// @sa SDL_GPUTexture
 /// </summary>
 public partial struct SDL_GPUTextureRegion
 {
@@ -3753,7 +3781,8 @@ public partial struct SDL_GPUTextureRegion
 /// <br/>
 /// @since This struct is available since SDL 3.2.0.<br/>
 /// <br/>
-/// @sa SDL_BlitGPUTexture
+/// @sa SDL_BlitGPUTexture<br/>
+/// @sa SDL_GPUTexture
 /// </summary>
 public partial struct SDL_GPUBlitRegion
 {
@@ -4129,6 +4158,7 @@ public partial struct SDL_GPUStencilOpState
 /// <br/>
 /// @since This struct is available since SDL 3.2.0.<br/>
 /// <br/>
+/// @sa SDL_SetGPUBlendConstants<br/>
 /// @sa SDL_GPUColorTargetDescription<br/>
 /// @sa SDL_GPUBlendFactor<br/>
 /// @sa SDL_GPUBlendOp<br/>
@@ -4804,7 +4834,12 @@ public partial struct SDL_GPUDepthStencilTargetInfo
 /// <br/>
 /// @since This struct is available since SDL 3.2.0.<br/>
 /// <br/>
-/// @sa SDL_BlitGPUTexture
+/// @sa SDL_BlitGPUTexture<br/>
+/// @sa SDL_GPUBlitRegion<br/>
+/// @sa SDL_GPULoadOp<br/>
+/// @sa SDL_FColor<br/>
+/// @sa SDL_FlipMode<br/>
+/// @sa SDL_GPUFilter
 /// </summary>
 public partial struct SDL_GPUBlitInfo
 {
