@@ -27,10 +27,10 @@ jobs:
           - { name: win-x64,     os: windows-latest,   flags: -A x64 }
           - { name: win-x86,     os: windows-latest,   flags: -A Win32 }
           - { name: win-arm64,   os: windows-latest,   flags: -A ARM64 }
-          - { name: linux-x64,   os: ubuntu-22.04,     flags: -GNinja, target_apt_arch: ":amd64" }
-          - { name: linux-x86,   os: ubuntu-22.04,     flags: -GNinja -DCMAKE_C_FLAGS=-m32 -DCMAKE_CXX_FLAGS=-m32", target_apt_arch: ":i386" }
-          - { name: linux-arm64, os: ubuntu-22.04-arm, flags: -GNinja, target_apt_arch: ":arm64", container: "arm64v8/ubuntu:22.04" }
-          - { name: linux-arm,   os: ubuntu-22.04-arm, flags: -GNinja, target_apt_arch: ":armhf", container: "arm32v7/ubuntu:22.04" }
+          - { name: linux-x64,   os: ubuntu-22.04,     flags: -GNinja,                                        target_apt_arch: ":amd64", container: "ubuntu:18.04" }
+          - { name: linux-x86,   os: ubuntu-22.04,     flags: -GNinja -DCMAKE_C_FLAGS=-m32 -DCMAKE_CXX_FLAGS=-m32, target_apt_arch: ":i386",  container: "ubuntu:18.04" }
+          - { name: linux-arm64, os: ubuntu-22.04, flags: -GNinja, target_apt_arch: ":arm64", cross_prefix: "aarch64-linux-gnu-",   container: "ubuntu:18.04" }
+          - { name: linux-arm,   os: ubuntu-22.04, flags: -GNinja, target_apt_arch: ":armhf", cross_prefix: "arm-linux-gnueabihf-", container: "ubuntu:18.04" }
           - { name: osx-x64,     os: macos-latest,     flags: -DCMAKE_OSX_ARCHITECTURES=x86_64 -DCMAKE_OSX_DEPLOYMENT_TARGET=10.14 }
           # NOTE: macOS 11.0 is the first released supported by Apple Silicon.
           - { name: osx-arm64,   os: macos-latest,     flags: -DCMAKE_OSX_ARCHITECTURES=arm64 -DCMAKE_OSX_DEPLOYMENT_TARGET=11.0 }
@@ -44,27 +44,26 @@ jobs:
         run: |
               mkdir -p runtimes/${{ matrix.platform.name }}/native
 
-      - name: Build (Linux ARM)
-        if: contains(matrix.platform.container, 'arm')
-        uses: addnab/docker-run-action@v3
-        with:
-          image: ${{ matrix.platform.container }}
-          options: >
-            -v ${{ github.workspace }}:/workspace
-            -e NAME=${{ matrix.platform.name }}
-            -e TARGET_APT_ARCH=${{ matrix.platform.target_apt_arch }}
-            -e RUNNER_OS=${{ runner.os }}
-            -e FLAGS=${{ matrix.platform.flags }}
-            -e BUILD_TYPE=${{ env.BUILD_TYPE }}
-          run: |
-            cd /workspace
-            echo $PWD
-            cd ./external
-            chmod +x $PWD/build.sh
-            ./build.sh
+      - name: Build (inside Docker)
+        if: ${{ matrix.platform.container }}
+        shell: bash
+        run: |
+          # 不能使用 job 级 container：ubuntu:18.04 的 glibc 2.27 无法运行 Actions 所需的 Node 20。
+          # 因此由 runner 宿主执行 actions，仅把编译放进容器完成。
+          docker run --rm \
+            -v "${{ github.workspace }}:/workspace" \
+            -w /workspace \
+            -e NAME="${{ matrix.platform.name }}" \
+            -e TARGET_APT_ARCH="${{ matrix.platform.target_apt_arch }}" \
+            -e CROSS_PREFIX="${{ matrix.platform.cross_prefix }}" \
+            -e RUNNER_OS="${{ runner.os }}" \
+            -e FLAGS="${{ matrix.platform.flags }}" \
+            -e BUILD_TYPE="${{ env.BUILD_TYPE }}" \
+            "${{ matrix.platform.container }}" \
+            bash -c "cd external && chmod +x build.sh && ./build.sh"
 
       - name: Build
-        if: ${{ !contains(matrix.platform.container, 'arm') }}
+        if: ${{ !matrix.platform.container }}
         shell: bash
         env:
           NAME: ${{ matrix.platform.name }}
@@ -77,16 +76,9 @@ jobs:
           chmod +x $PWD/build.sh
           ./build.sh
 
-      - name: Get Actions user id
+      - name: Correct workspace ownership
         if: runner.os == 'Linux'
-        id: get_uid
-        run: echo "uid=$(id -u $USER)" >> $GITHUB_OUTPUT
-
-      - name: Correct Ownership in GITHUB_WORKSPACE directory
-        if: runner.os == 'Linux'
-        uses: peter-murray/reset-workspace-ownership-action@v1
-        with:
-          user_id: ${{ steps.get_uid.outputs.uid }}
+        run: sudo chown -R "$(id -u):$(id -g)" "${{ github.workspace }}"
 
       - name: Compress native directory
         run:  tar -cf native-${{ matrix.platform.name }}.tar runtimes/${{ matrix.platform.name }}/native
