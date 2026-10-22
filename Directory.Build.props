@@ -24,8 +24,9 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    <Authors>Mufiy and Contributors</Authors>
-    <Copyright>Copyright (c) Mufiy and Contributors</Copyright>
+    <Authors>Larks X</Authors>
+    <Company>Larks X</Company>
+    <Copyright>Copyright 2026 (c) Larks X</Copyright>
     <Product>https://github.com/larks-x/Mufiy.SDL</Product>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>

@@ -1,0 +1,31 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>net6.0</TargetFrameworks>
+    <SupportedOSPlatformVersion>26</SupportedOSPlatformVersion>
+    <Title>Cross platform .NET bindings for SDL3</Title>
+    <RootNamespace>SDL</RootNamespace>
+    <WarningsAsErrors>true</WarningsAsErrors>
+    <!-- net6.0 不支持 AOT 兼容性分析，关闭以避免 NETSDK1210 警告 -->
+    <IsAotCompatible>false</IsAotCompatible>
+    <IsPackable>true</IsPackable>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <VersionPrefix>3.4.18</VersionPrefix>
+    <!--<VersionSuffix>fix1</VersionSuffix>-->
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="$(RepoRootPath)README.md" Pack="true" PackagePath="\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="..\..\runtimes\**" PackagePath="runtimes" Pack="true" />
+    <EmbeddedJar Include="Jars\SDL3AndroidBridge.jar" />
+  </ItemGroup>
+
+
+</Project>
